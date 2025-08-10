@@ -4,6 +4,7 @@ using GeoTechLog.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace GeoTechLog.Migrations
 {
     [DbContext(typeof(GeoTechLogDbContext))]
-    partial class GeoTechLogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250810025941_Added_Report_Entities2")]
+    partial class Added_Report_Entities2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

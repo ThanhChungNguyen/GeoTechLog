@@ -14,6 +14,9 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using GeoTechLog.Blob;
+using Volo.Abp.BlobStoring;
+using Volo.Abp.BlobStoring.FileSystem;
 
 namespace GeoTechLog;
 
@@ -28,7 +31,8 @@ namespace GeoTechLog;
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpSettingManagementDomainModule),
     typeof(AbpTenantManagementDomainModule),
-    typeof(AbpEmailingModule)
+    typeof(AbpEmailingModule),
+    typeof(AbpBlobStoringFileSystemModule)
 )]
 public class GeoTechLogDomainModule : AbpModule
 {
@@ -60,9 +64,21 @@ public class GeoTechLogDomainModule : AbpModule
         {
             options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
+        
 
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif
+
+        Configure<AbpBlobStoringOptions>(options =>
+        {
+            options.Containers.Configure<ReportsContainer>(container =>
+            {
+                container.UseFileSystem(fs =>
+                {
+                    fs.BasePath = "D:/GeoTechLogFiles";
+                });
+            });
+        });
     }
 }

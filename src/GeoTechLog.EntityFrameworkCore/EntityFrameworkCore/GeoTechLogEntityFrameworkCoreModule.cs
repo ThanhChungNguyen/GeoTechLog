@@ -12,6 +12,7 @@ using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using GeoTechLog.Reports;
 
 namespace GeoTechLog.EntityFrameworkCore;
 
@@ -38,9 +39,11 @@ public class GeoTechLogEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<GeoTechLogDbContext>(options =>
         {
-                /* Remove "includeAllEntities: true" to create
-                 * default repositories only for aggregate roots */
+            /* Remove "includeAllEntities: true" to create
+             * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
+            
+             options.AddRepository<Report, ReportRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

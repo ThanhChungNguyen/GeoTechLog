@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GeoTechLog.Reports;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -51,6 +53,16 @@ public class GeoTechLogDbContext :
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
+    // Report
+    public DbSet<Borehole> Boreholes { get; set; }
+    public DbSet<Report> Reports { get; set; }
+    public DbSet<ReportShare> ReportShares { get; set; }
+    public DbSet<ReportBorehole> ReportBoreholes { get; set; }
+    public DbSet<ReportVersion> ReportVersions { get; set; }
+    public DbSet<ReportAttachment> ReportAttachments { get; set; }
+    public DbSet<ReportType> ReportTypes { get; set; }
+
+
     #endregion
 
     public GeoTechLogDbContext(DbContextOptions<GeoTechLogDbContext> options)
@@ -75,12 +87,9 @@ public class GeoTechLogDbContext :
         builder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
-
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(GeoTechLogConsts.DbTablePrefix + "YourEntities", GeoTechLogConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.ApplyConfiguration(new ReportAttachmentConfiguration());
+        builder.ApplyConfiguration(new ReportBoreholeConfiguration());
+        builder.ApplyConfiguration(new ReportEntityConfiguration());
+        builder.ApplyConfiguration(new ReportVersionConfiguration());
     }
 }
