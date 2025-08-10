@@ -44,6 +44,9 @@ public class GeoTechLogEntityFrameworkCoreModule : AbpModule
             options.AddDefaultRepositories(includeAllEntities: true);
             
              options.AddRepository<Report, ReportRepository>();
+             options.AddRepository<ReportVersion, ReportVersionRepository>();
+             options.AddRepository<ReportType, ReportTypeRepository>();
+             options.AddRepository<Borehole, BoreholeRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

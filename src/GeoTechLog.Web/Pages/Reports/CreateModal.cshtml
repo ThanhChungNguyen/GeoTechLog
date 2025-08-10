@@ -1,0 +1,70 @@
+@page
+@model GeoTechLog.Web.Pages.Reports.CreateModalModel
+@{
+  Layout = null;
+}
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+
+<div class="modal fade" id="CreateReportModal" tabindex="-1" aria-labelledby="CreateReportModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" id="CreateReportForm" action="/api/reports">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="CreateReportModalLabel">Create Report</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Title -->
+          <div class="mb-3">
+            <label asp-for="Input.Title" class="form-label"></label>
+            <input asp-for="Input.Title" class="form-control" />
+            <span asp-validation-for="Input.Title" class="text-danger"></span>
+          </div>
+
+          <!-- Report Type -->
+          <div class="mb-3">
+            <label asp-for="Input.ReportTypeId" class="form-label">Report Type</label>
+            <input asp-for="Input.ReportTypeId" class="form-control"
+              placeholder="11111111-1111-1111-1111-111111111111" />
+            <span asp-validation-for="Input.ReportTypeId" class="text-danger"></span>
+          </div>
+
+          <!-- Borehole IDs -->
+          <div class="mb-3">
+            <label asp-for="Input.BoreholeIds" class="form-label">Borehole IDs (comma-separated)</label>
+            <input asp-for="Input.BoreholeIds" class="form-control"
+              placeholder="b2a5c62d-97e2-4fc5-9d08-246b5b3a6c1a" />
+            <span asp-validation-for="Input.BoreholeIds" class="text-danger"></span>
+          </div>
+
+          <!-- Summary -->
+          <div class="mb-3">
+            <label asp-for="Input.Summary" class="form-label">Summary</label>
+            <textarea asp-for="Input.Summary" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Input.Summary" class="text-danger"></span>
+          </div>
+
+          <!-- Content JSON -->
+          <div class="mb-3">
+            <label asp-for="Input.ContentJson" class="form-label">Content (JSON)</label>
+            <textarea asp-for="Input.ContentJson" class="form-control"
+              rows="4">{ "sections": ["Introduction", "Findings"] }</textarea>
+            <span asp-validation-for="Input.ContentJson" class="text-danger"></span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

@@ -15,9 +15,11 @@ namespace GeoTechLog.Reports
         Task<ReportDetailDto> CreateAsync(CreateReportDto input);
         Task<ReportDetailDto> UpdateAsync(Guid id, UpdateReportDto input);
         Task DeleteAsync(Guid id);
-        Task<ReportAttachmentDto> UploadAttachmentAsync(Guid id, FileUploadDto  file);
+        Task<ReportAttachmentDto> UploadAttachmentAsync(Guid id, FileUploadDto file);
         Task ApproveAsync(Guid id);
         Task<List<ReportVersionDto>> GetHistoryAsync(Guid id);
+        Task<List<ReportTypeDto>> GetReportTypesAsync();
+        Task<List<BoreholeDto>> GetBoreholesAsync();
     }
 
 }

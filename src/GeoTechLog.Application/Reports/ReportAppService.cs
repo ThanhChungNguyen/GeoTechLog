@@ -22,16 +22,22 @@ namespace GeoTechLog.Reports
     {
         private readonly IReportRepository _reportRepo;
         private readonly IReportVersionRepository _reportVersionRepo;
+        private readonly IReportTypeRepository _reportTypeRepo;
+        private readonly IBoreholeRepository _boreholeRepo;
         private readonly IRepository<ReportAttachment, Guid> _attachRepo;
-        private readonly  IBlobContainer<ReportsContainer> _blobContainer;
+        private readonly IBlobContainer<ReportsContainer> _blobContainer;
 
         public ReportAppService(IReportRepository reportRepo,
             IReportVersionRepository reportVersionRepo,
+            IReportTypeRepository reportTypeRepo,
+            IBoreholeRepository boreholeRepo,
             IRepository<ReportAttachment, Guid> attachRepo,
              IBlobContainer<ReportsContainer> blobContainer)
         {
             _reportRepo = reportRepo;
             _reportVersionRepo = reportVersionRepo;
+            _reportTypeRepo = reportTypeRepo;
+            _boreholeRepo = boreholeRepo;
             _attachRepo = attachRepo;
             _blobContainer = blobContainer;
         }
@@ -207,6 +213,18 @@ namespace GeoTechLog.Reports
         {
             var versions = await _reportVersionRepo.GetVersionsAsync(reportId);
             return ObjectMapper.Map<List<ReportVersion>, List<ReportVersionDto>>(versions);
+        }
+
+        public async Task<List<ReportTypeDto>> GetReportTypesAsync()
+        {
+            var reportType = await _reportTypeRepo.GetListAsync();
+            return ObjectMapper.Map<List<ReportType>, List<ReportTypeDto>>(reportType);
+        }
+
+        public async Task<List<BoreholeDto>> GetBoreholesAsync()
+        {
+            var boreholes = await _boreholeRepo.GetListAsync();
+            return ObjectMapper.Map<List<Borehole>, List<BoreholeDto>>(boreholes);
         }
     }
 }

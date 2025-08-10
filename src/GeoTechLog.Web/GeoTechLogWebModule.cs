@@ -40,6 +40,7 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
+using GeoTechLog.Web.Bundling;
 
 namespace GeoTechLog.Web;
 
@@ -140,6 +141,13 @@ public class GeoTechLogWebModule : AbpModule
                 bundle =>
                 {
                     bundle.AddFiles("/global-styles.css");
+                }
+            );
+            options.ScriptBundles.Configure(
+                LeptonXLiteThemeBundles.Scripts.Global,
+                bundle =>
+                {
+                    bundle.AddContributors(typeof(CustomLeptonXLiteGlobalContributor));
                 }
             );
         });

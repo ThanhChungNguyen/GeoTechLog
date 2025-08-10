@@ -12,5 +12,7 @@ public class GeoTechLogApplicationAutoMapperProfile : Profile
         CreateMap<ReportVersion, ReportVersionDto>();
         CreateMap<Report, ReportListDto>();
         CreateMap<ReportAttachment, ReportAttachmentDto>();
+        CreateMap<ReportType, ReportTypeDto>();
+        CreateMap<Borehole, BoreholeDto>();
     }
 }

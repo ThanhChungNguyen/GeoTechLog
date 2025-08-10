@@ -12,7 +12,8 @@ namespace GeoTechLog.Reports
     public class ReportListDto : EntityDto<Guid>
     {
         public string Title { get; set; } = null!;
-        public GeoTechLog.Reports.ReportStatus Status { get; set; }
+        public ReportStatus Status { get; set; }
+        public int CurrentVersionNumber { get; set; }
         public string ReportTypeName { get; set; } = null!;
         public DateTimeOffset CreationTime { get; set; }
     }
@@ -44,5 +45,18 @@ namespace GeoTechLog.Reports
         public string ContentType { get; set; } = null!;
         public long Size { get; set; }
         public string DownloadUrl { get; set; } = null!;
+    }
+
+    // ReportTypeDto.cs
+    public class ReportTypeDto : EntityDto<Guid>
+    {
+        public string Name { get; set; } = null!;
+        public string Description { get; set; } = null!;
+    }
+
+    // BoreholeDto.cs
+    public class BoreholeDto : EntityDto<Guid>
+    {
+        public string Name { get; set; } = null!;
     }
 }
